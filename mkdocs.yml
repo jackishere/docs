@@ -1,1 +1,23 @@
-site_name: My Docs
+site_name: Gatekeeper
+site_description: JWT authentication and authorization gateway for Go microservices
+
+theme:
+  name: readthedocs
+
+extra:
+  version:
+    provider: mike
+    default: latest
+
+plugins:
+  - search
+  - mike:
+      alias_type: symlink
+      canonical_version: latest
+
+nav:
+  - Overview: index.md
+  - Getting Started: getting-started.md
+  - API Reference: api-reference.md
+  - Configuration: configuration.md
+  - Changelog: changelog.md

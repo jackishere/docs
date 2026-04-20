@@ -4,6 +4,40 @@ All notable changes to Gatekeeper are documented here. Format follows [Keep a Ch
 
 ---
 
+## [v1.3.0] — 2026-04-20 *(unreleased)*
+
+### Added
+
+- **mTLS support** — Gatekeeper can now verify client certificates as an alternative to Bearer tokens. Configure via `auth.mtls`.
+- **`GET /v1/policies`** — list all active policy rules with their current state.
+- **Helm chart** — official Helm chart published at `charts.example.com/gatekeeper`.
+
+### Changed
+
+- Minimum Go version bumped to 1.23.
+- Docker base image changed from `alpine:3.18` to `distroless/static` — image size reduced from 18MB to 6MB.
+
+---
+
+## [v1.2.0] — 2026-04-20
+
+### Added
+
+- **Audit log** — all token issuance and revocation events now written to a structured audit log file, configurable via `observability.audit_log`.
+- **`POST /v1/tokens/refresh`** — new endpoint to exchange a refresh token for a new access token without re-authenticating.
+- **`gatekeeper validate`** subcommand — alias for `--dry-run`, easier to use in CI pipelines.
+
+### Changed
+
+- OIDC provider now caches JWKS keys with a 5-minute TTL instead of fetching on every request. Reduces latency on token validation by ~40ms p99.
+- `X-User-Roles` header now sends roles as a comma-separated string instead of a JSON array for broader upstream compatibility.
+
+### Fixed
+
+- Refresh tokens were not invalidated when the parent access token was revoked via `DELETE /v1/tokens/{id}`.
+
+---
+
 ## [v1.1.0] — 2026-03-15
 
 ### Added
